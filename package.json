@@ -1,0 +1,30 @@
+{
+  "name": "jexia-playground",
+  "version": "0.0.1",
+  "description": "Testing and playing with Jexia",
+  "main": "./src/index.js",
+  "scripts": {
+    "start": "node ./src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HencoSmith/jexia-playground.git"
+  },
+  "keywords": [
+    "Jexia",
+    "Node",
+    "Js"
+  ],
+  "author": "Henco Smith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/HencoSmith/jexia-playground/issues"
+  },
+  "homepage": "https://github.com/HencoSmith/jexia-playground#readme",
+  "dependencies": {
+    "chalk": "^4.0.0",
+    "jexia-sdk-js": "^4.10.1",
+    "moment": "^2.26.0"
+  }
+}
