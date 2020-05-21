@@ -1,6 +1,6 @@
 {
   "name": "jexia-playground",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Testing and playing with Jexia",
   "main": "./src/index.js",
   "scripts": {
@@ -26,5 +26,10 @@
     "chalk": "^4.0.0",
     "jexia-sdk-js": "^4.10.1",
     "moment": "^2.26.0"
+  },
+  "devDependencies": {
+    "eslint": "^7.0.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-plugin-import": "^2.20.2"
   }
 }

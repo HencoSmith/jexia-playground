@@ -27,13 +27,12 @@ const { jexiaClient, dataOperations, UMSModule } = require('jexia-sdk-js/node');
     const dataOps = dataOperations();
     const ums = new UMSModule();
 
-    const projectID = process.env.PROJECT_ID;
+    const projectID = process.env.JEXIA_PROJECT_ID;
 
     console.info(chalk.yellow(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Init ID '${projectID}'`));
     jexiaClient().init({
         projectID,
     }, dataOps, ums);
 
-    // TODO: jexia integration
-    // TODO: aribnb linter setup
+    // TODO: jexia
 })();
