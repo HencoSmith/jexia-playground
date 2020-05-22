@@ -1,0 +1,8 @@
+{
+    "jexia": {
+        "jokeDataset": "Jokes"
+    },
+    "request": {
+        "chuckNorrisGet": "https://api.chucknorris.io/jokes/random"
+    }
+}

@@ -1,10 +1,10 @@
 {
   "name": "jexia-playground",
-  "version": "0.0.2",
-  "description": "Testing and playing with Jexia",
+  "version": "0.0.3",
+  "description": "Pushes Chuck norris joke to Jexia dataset every time app runs.",
   "main": "./src/index.js",
   "scripts": {
-    "start": "node ./src/index.js",
+    "start": "nodemon node ./src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -23,9 +23,14 @@
   },
   "homepage": "https://github.com/HencoSmith/jexia-playground#readme",
   "dependencies": {
+    "axios": "^0.19.2",
+    "bluebird": "^3.7.2",
     "chalk": "^4.0.0",
+    "config": "^3.3.1",
     "jexia-sdk-js": "^4.10.1",
-    "moment": "^2.26.0"
+    "lodash": "^4.17.15",
+    "moment": "^2.26.0",
+    "nodemon": "^2.0.4"
   },
   "devDependencies": {
     "eslint": "^7.0.0",
