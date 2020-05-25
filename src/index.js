@@ -21,6 +21,8 @@ const axios = require('axios');
 const config = require('config');
 // Promise helper
 const Promise = require('bluebird');
+// Discord SDK
+const Discord = require('discord.js');
 
 
 /**
@@ -42,6 +44,10 @@ const Promise = require('bluebird');
         const secret = process.env.JEXIA_API_SECRET;
         if (_.isUndefined(secret) || _.isNull(secret)) {
             throw new Error('JEXIA_API_SECRET environment variable must be defined');
+        }
+        const botToken = process.env.DISCORD_BOT_TOKEN;
+        if (_.isUndefined(botToken) || _.isNull(botToken)) {
+            throw new Error('DISCORD_BOT_TOKEN environment variable must be defined');
         }
 
 
@@ -78,6 +84,16 @@ const Promise = require('bluebird');
         }).catch((err) => { throw err; });
 
         console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${JSON.stringify(records)}`));
+
+
+        // Create and init discord client
+        const client = new Discord.Client();
+        const bot = await client.login(botToken)
+            .catch((err) => { throw err; });
+
+        // bot.on('ready', () => {
+        //     console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Discord bot logged in as ${bot.user.tag}`));
+        // });
     } catch (err) {
         console.error(chalk.red(err.message));
         console.info(chalk.yellow(err.stack));
