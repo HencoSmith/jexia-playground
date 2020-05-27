@@ -1,10 +1,11 @@
 {
   "name": "jexia-playground",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Pushes Chuck norris joke to Jexia dataset every time app runs.",
   "main": "./src/index.js",
   "scripts": {
-    "start": "nodemon node ./src/index.js",
+    "start": "node ./src/index.js",
+    "debug": "nodemon node ./src/index.js",
     "build": "echo \"Nothing to do here\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
