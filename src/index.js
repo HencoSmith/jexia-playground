@@ -100,6 +100,9 @@ const Discord = require('discord.js');
                 msg.reply(`Here is the joke of the day!\n${joke}`);
             }
         });
+
+        // TODO: https://www.npmjs.com/package/chatbot
+        // TODO: pull random joke from jexia
     } catch (err) {
         console.error(chalk.red(err.message));
         console.info(chalk.yellow(err.stack));
