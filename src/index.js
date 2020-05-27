@@ -88,12 +88,18 @@ const Discord = require('discord.js');
 
         // Create and init discord client
         const client = new Discord.Client();
-        const bot = await client.login(botToken)
+        await client.login(botToken)
             .catch((err) => { throw err; });
 
-        // bot.on('ready', () => {
-        //     console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Discord bot logged in as ${bot.user.tag}`));
-        // });
+        client.on('ready', () => {
+            console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Discord bot logged in as ${client.user.tag}`));
+        });
+
+        client.on('message', (msg) => {
+            if (msg.content.toLowerCase().includes('hello')) {
+                msg.reply(`Here is the joke of the day!\n${joke}`);
+            }
+        });
     } catch (err) {
         console.error(chalk.red(err.message));
         console.info(chalk.yellow(err.stack));
