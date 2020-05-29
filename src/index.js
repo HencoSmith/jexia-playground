@@ -23,6 +23,8 @@ const config = require('config');
 const Promise = require('bluebird');
 // Discord SDK
 const Discord = require('discord.js');
+// Routing Helper and Middleware
+const express = require('express');
 
 
 /**
@@ -49,9 +51,13 @@ const Discord = require('discord.js');
         if (_.isUndefined(botToken) || _.isNull(botToken)) {
             throw new Error('DISCORD_BOT_TOKEN environment variable must be defined');
         }
+        const port = process.env.PORT;
+        if (_.isUndefined(port) || _.isNull(port)) {
+            throw new Error('PORT environment variable must be defined');
+        }
 
 
-        // Pull a Chuck Norris joke
+        // Pull a Chuck Norris joke from API
         const { data } = await axios.get(config.get('request.chuckNorrisGet'));
         const joke = data.value;
         console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] '${joke}'`));
@@ -100,6 +106,14 @@ const Discord = require('discord.js');
                 msg.reply(`Here is the joke of the day!\n${joke}`);
             }
         });
+
+
+        // Setup Express
+        const app = express();
+        app.get('/', (req, res) => {
+            res.send(joke);
+        });
+        app.listen(port);
 
         // TODO: https://www.npmjs.com/package/chatbot
         // TODO: pull random joke from jexia

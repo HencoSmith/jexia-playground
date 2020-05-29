@@ -7,6 +7,7 @@ Pushes Chuck norris joke to Jexia dataset every time app runs.
 * JEXIA_API_KEY - API key used to access datasets
 * JEXIA_API_SECRET - Secret associated with API key
 * DISCORD_BOT_TOKEN - Obtained by creating a bot on [Discord Developers Portal](https://discord.com/developers/applications)
+* PORT - Port for express to listen on (80 is required for Jexia deployment)
 
 # startup
 ```bash
