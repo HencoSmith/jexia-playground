@@ -13,18 +13,20 @@ const moment = require('moment');
 const chalk = require('chalk');
 // General helper library
 const _ = require('lodash');
-// Jexia
-const { jexiaClient, dataOperations } = require('jexia-sdk-js/node');
 // REST helper
 const axios = require('axios');
 // Config file loader
 const config = require('config');
-// Promise helper
-const Promise = require('bluebird');
 // Discord SDK
 const Discord = require('discord.js');
 // Routing Helper and Middleware
 const express = require('express');
+
+
+/**
+ * Helpers
+ */
+const { pushJoke, getRandomJoke } = require('./components/jexia');
 
 
 /**
@@ -63,33 +65,8 @@ const express = require('express');
         console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] '${joke}'`));
 
 
-        // Jexia Setup
-        const dataOps = dataOperations();
-
-        console.info(chalk.yellow(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Init Project ID '${projectID}'`));
-
-        jexiaClient().init({
-            projectID,
-            key,
-            secret,
-        }, dataOps);
-
-        // Push Joke to dataset
-        const jokes = dataOps.dataset(config.get('jexia.jokeDataset'));
-
-        const insertQuery = jokes.insert([{
-            description: joke,
-        }]);
-
-        const records = await new Promise((resolve, reject) => {
-            insertQuery.subscribe((res) => {
-                resolve(res);
-            }, (err) => {
-                reject(err);
-            });
-        }).catch((err) => { throw err; });
-
-        console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] ${JSON.stringify(records)}`));
+        // Push a joke to Jexia on Startup
+        await pushJoke(joke).catch((err) => { throw err; });
 
 
         // Create and init discord client
@@ -101,9 +78,13 @@ const express = require('express');
             console.info(chalk.green(`[${moment().format('YYYY-MM-DD HH:mm:ss')}] Discord bot logged in as ${client.user.tag}`));
         });
 
-        client.on('message', (msg) => {
+        client.on('message', async (msg) => {
             if (msg.content.toLowerCase().includes('hello')) {
-                msg.reply(`Here is the joke of the day!\n${joke}`);
+                msg.reply(await getRandomJoke());
+                return;
+            }
+            if (msg.content.toLowerCase().includes('day')) {
+                msg.reply(joke);
             }
         });
 
