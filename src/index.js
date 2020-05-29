@@ -111,7 +111,10 @@ const express = require('express');
         // Setup Express
         const app = express();
         app.get('/', (req, res) => {
-            res.send(joke);
+            res.json({
+                dailyJoke: joke,
+                discordServer: 'https://discord.gg/8UnBxRm',
+            });
         });
         app.listen(port);
 
