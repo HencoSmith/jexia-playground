@@ -1,6 +1,6 @@
 {
   "name": "jexia-playground",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Pushes Chuck norris joke to Jexia dataset every time app runs.",
   "main": "./src/index.js",
   "scripts": {
@@ -25,6 +25,7 @@
   },
   "homepage": "https://github.com/HencoSmith/jexia-playground#readme",
   "dependencies": {
+    "@nlpjs/basic": "^4.4.0",
     "axios": "^0.19.2",
     "bluebird": "^3.7.2",
     "chalk": "^4.0.0",

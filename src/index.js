@@ -27,6 +27,7 @@ const express = require('express');
  * Helpers
  */
 const { pushJoke, getRandomJoke } = require('./components/jexia');
+const { getBot } = require('./components/nlp');
 
 
 /**
@@ -69,6 +70,10 @@ const { pushJoke, getRandomJoke } = require('./components/jexia');
         await pushJoke(joke).catch((err) => { throw err; });
 
 
+        // Setup NLP bot
+        const nlp = await getBot().catch((err) => { throw err; });
+
+
         // Create and init discord client
         const client = new Discord.Client();
         await client.login(botToken)
@@ -79,12 +84,23 @@ const { pushJoke, getRandomJoke } = require('./components/jexia');
         });
 
         client.on('message', async (msg) => {
-            if (msg.content.toLowerCase().includes('hello')) {
+            if (msg.content.toLowerCase().includes('joke')) {
                 msg.reply(await getRandomJoke());
                 return;
             }
-            if (msg.content.toLowerCase().includes('day')) {
+            if ([
+                'day',
+                'daily',
+            ].includes(msg.content.toLowerCase())) {
                 msg.reply(joke);
+                return;
+            }
+
+            const nlpResult = await nlp.process('en', msg.content)
+                .catch((err) => { throw err; });
+            const { answer } = nlpResult;
+            if (!_.isUndefined(answer) && !_.isNull(answer)) {
+                msg.reply(answer);
             }
         });
 
@@ -99,8 +115,6 @@ const { pushJoke, getRandomJoke } = require('./components/jexia');
         });
         app.listen(port);
 
-        // TODO: https://www.npmjs.com/package/chatbot
-        // TODO: pull random joke from jexia
     } catch (err) {
         console.error(chalk.red(err.message));
         console.info(chalk.yellow(err.stack));
