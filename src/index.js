@@ -114,7 +114,6 @@ const { getBot } = require('./components/nlp');
             });
         });
         app.listen(port);
-
     } catch (err) {
         console.error(chalk.red(err.message));
         console.info(chalk.yellow(err.stack));
